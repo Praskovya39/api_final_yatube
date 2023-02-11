@@ -32,9 +32,6 @@ class Post(models.Model):
         upload_to='posts/',
         blank=True,)
 
-    class Meta:
-        ordering = ('-pub_date',)
-
     def __str__(self):
         return self.text[:NUM_OF_LETTERS]
 
@@ -86,21 +83,20 @@ class Follow(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='follower',
-        verbose_name='Подписчик',
         help_text='Тот, кто подписывается')
-    author = models.ForeignKey(
+    following = models.ForeignKey(
         User,
+        null=True,
         on_delete=models.CASCADE,
         related_name='following',
-        verbose_name='Кумир',
         help_text='На кого подписываются')
 
     class Meta:
         constraints = (
             models.UniqueConstraint(
-                fields=('author', 'user'), name='unique_following'
+                fields=('following', 'user'), name='unique_following'
             ),
         )
 
     def __str__(self):
-        return f'{self.user} подписан на {self.author}'
+        return f'{self.user} подписан на {self.following}'
