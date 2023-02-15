@@ -1,7 +1,7 @@
-from rest_framework import (viewsets,
-                            permissions, mixins, filters, DjangoFilterBackend)
+from rest_framework import viewsets, permissions, mixins, filters
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.generics import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 from posts.models import Group, Post
 from api.permissions import IsAuthorOrReadOnly
 from api.serializers import (PostSerializer, GroupSerializer,
